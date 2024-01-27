@@ -1,95 +1,96 @@
-import { Router } from "express";
 import { PrismaClient } from '@prisma/client'
+import { Controller, Get, Post, Delete, Put, Route, Body, Tags } from "tsoa";
+import { CreateSpentStatus, UpdateSpentStatus } from '../models/spent_status';
 
-const endpoints = Router();
 const prisma = new PrismaClient()
 
-endpoints.get('/spentstatus', async (req, res) => {
-    try {
-        const categories = await prisma.spentstatus.findMany({
-            where: { Active: true },
-        });
-
-        res.json(categories)
-    } catch (error) {
-        console.error(error)
-    } finally {
-        await prisma.$disconnect()
+@Route("/spentstatus")
+@Tags('Spent Status')
+export default class SpentStatusController extends Controller{
+    @Get("/")
+    public async list() {
+        try {
+            const data = await prisma.spentstatus.findMany({
+                where: { Active: true },
+            });
+    
+            return data
+        } catch (error) {
+            console.error(error)
+        } finally {
+            await prisma.$disconnect()
+        }
     }
-})
 
-endpoints.get('/spentstatus/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const categories = await prisma.spentstatus.findFirst({
-            where: { Active: true, IdSpentStatus: Number(id) },
-        });
-
-        res.json(categories)
-    } catch (error) {
-        console.error(error)
-    } finally {
-        await prisma.$disconnect()
+    @Get("/:id")
+    public async getById(id: any) {
+        try {
+            const data = await prisma.spentstatus.findFirst({
+                where: { Active: true, IdSpentStatus: Number(id) },
+            });
+    
+            return data
+        } catch (error) {
+            console.error(error)
+        } finally {
+            await prisma.$disconnect()
+        }
     }
-})
 
-
-endpoints.post('/spentstatus', async (req, res) => {
-    try {
-        const { description } = req.body
-
-        const status = await prisma.spentstatus.create({
-            data: {
-                Description: description,
-                RegisterDate: new Date().toISOString(),
-                Active: true
-            },
-        });
-
-        res.json(status)
-    } catch (error) {
-        console.error(error)
-    } finally {
-        await prisma.$disconnect()
+    @Post("/")
+    public async create(@Body() requestBody: CreateSpentStatus) {
+        try {
+            const { description } = requestBody
+    
+            const data = await prisma.spentstatus.create({
+                data: {
+                    Description: description,
+                    RegisterDate: new Date().toISOString(),
+                    Active: true
+                },
+            });
+    
+            return data
+        } catch (error) {
+            console.error(error)
+        } finally {
+            await prisma.$disconnect()
+        }
     }
-})
 
-endpoints.put('/spentstatus', async (req, res) => {
-    try {
-        const { idSpentStatus, description } = req.body
+    @Put("/")
+    public async update(@Body() requestBody: UpdateSpentStatus) {
+        try {
+            const { idSpentStatus, description } = requestBody
 
-        const status = await prisma.spentstatus.update({
-            where: { IdSpentStatus: idSpentStatus },
-            data: {
-                Description: description
-            },
-        });
-
-        res.json(status)
-    } catch (error) {
-        console.error(error)
-    } finally {
-        await prisma.$disconnect()
+            const data = await prisma.spentstatus.update({
+                where: { IdSpentStatus: idSpentStatus },
+                data: {
+                    Description: description
+                },
+            });
+    
+            return data
+        } catch (error) {
+            console.error(error)
+        } finally {
+            await prisma.$disconnect()
+        }
     }
-})
 
-endpoints.delete('/spentstatus/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        const status = await prisma.spentstatus.update({
-            where: { IdSpentStatus: Number(id) },
-            data: {
-                Active: false
-            },
-        });
-
-        res.json(status)
-    } catch (error) {
-        console.error(error)
-    } finally {
-        await prisma.$disconnect()
+    @Delete("/:id")
+    public async delete(id: any) {
+        try {
+            const data = await prisma.spentstatus.update({
+                where: { Active: true, IdSpentStatus: Number(id) },
+                data: { Active: false, },
+            });
+    
+            return data
+        } catch (error) {
+            console.error(error)
+        } finally {
+            await prisma.$disconnect()
+        }
     }
-})
-
-export default endpoints;
+}

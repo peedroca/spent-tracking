@@ -1,0 +1,1044 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Decimal": {
+				"type": "string"
+			},
+			"CreateSpent": {
+				"properties": {
+					"category": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"category",
+					"status",
+					"description",
+					"amount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateSpent": {
+				"properties": {
+					"idSpent": {
+						"type": "number",
+						"format": "double"
+					},
+					"category": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"idSpent",
+					"category",
+					"status",
+					"description",
+					"amount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateSpentCategory": {
+				"properties": {
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateSpentCategory": {
+				"properties": {
+					"idSpentCategory": {
+						"type": "number",
+						"format": "double"
+					},
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"idSpentCategory",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateSpentStatus": {
+				"properties": {
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateSpentStatus": {
+				"properties": {
+					"idSpentStatus": {
+						"type": "number",
+						"format": "double"
+					},
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"idSpentStatus",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "spentapi",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "peedroca"
+		}
+	},
+	"paths": {
+		"/spent": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"properties": {
+											"Active": {
+												"type": "boolean"
+											},
+											"RegisterDate": {
+												"type": "string",
+												"format": "date-time"
+											},
+											"Amount": {
+												"$ref": "#/components/schemas/Decimal"
+											},
+											"Description": {
+												"type": "string"
+											},
+											"IdSpentStatus": {
+												"type": "number",
+												"format": "double"
+											},
+											"IdSpentCategory": {
+												"type": "number",
+												"format": "double"
+											},
+											"IdSpent": {
+												"type": "number",
+												"format": "double"
+											}
+										},
+										"required": [
+											"Active",
+											"RegisterDate",
+											"Amount",
+											"Description",
+											"IdSpentStatus",
+											"IdSpentCategory",
+											"IdSpent"
+										],
+										"type": "object"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Amount": {
+											"$ref": "#/components/schemas/Decimal"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentStatus": {
+											"type": "number",
+											"format": "double"
+										},
+										"IdSpentCategory": {
+											"type": "number",
+											"format": "double"
+										},
+										"IdSpent": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Amount",
+										"Description",
+										"IdSpentStatus",
+										"IdSpentCategory",
+										"IdSpent"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateSpent"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Amount": {
+											"$ref": "#/components/schemas/Decimal"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentStatus": {
+											"type": "number",
+											"format": "double"
+										},
+										"IdSpentCategory": {
+											"type": "number",
+											"format": "double"
+										},
+										"IdSpent": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Amount",
+										"Description",
+										"IdSpentStatus",
+										"IdSpentCategory",
+										"IdSpent"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateSpent"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/spent/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"properties": {
+												"spentstatus": {
+													"properties": {
+														"Active": {
+															"type": "boolean"
+														},
+														"RegisterDate": {
+															"type": "string",
+															"format": "date-time"
+														},
+														"Description": {
+															"type": "string"
+														},
+														"IdSpentStatus": {
+															"type": "number",
+															"format": "double"
+														}
+													},
+													"required": [
+														"Active",
+														"RegisterDate",
+														"Description",
+														"IdSpentStatus"
+													],
+													"type": "object"
+												},
+												"spentcategory": {
+													"properties": {
+														"Active": {
+															"type": "boolean"
+														},
+														"RegisterDate": {
+															"type": "string",
+															"format": "date-time"
+														},
+														"Description": {
+															"type": "string"
+														},
+														"IdSpentCategory": {
+															"type": "number",
+															"format": "double"
+														}
+													},
+													"required": [
+														"Active",
+														"RegisterDate",
+														"Description",
+														"IdSpentCategory"
+													],
+													"type": "object"
+												}
+											},
+											"required": [
+												"spentstatus",
+												"spentcategory"
+											],
+											"type": "object"
+										},
+										{
+											"properties": {
+												"Active": {
+													"type": "boolean"
+												},
+												"RegisterDate": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"Amount": {
+													"$ref": "#/components/schemas/Decimal"
+												},
+												"Description": {
+													"type": "string"
+												},
+												"IdSpentStatus": {
+													"type": "number",
+													"format": "double"
+												},
+												"IdSpentCategory": {
+													"type": "number",
+													"format": "double"
+												},
+												"IdSpent": {
+													"type": "number",
+													"format": "double"
+												}
+											},
+											"required": [
+												"Active",
+												"RegisterDate",
+												"Amount",
+												"Description",
+												"IdSpentStatus",
+												"IdSpentCategory",
+												"IdSpent"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Amount": {
+											"$ref": "#/components/schemas/Decimal"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentStatus": {
+											"type": "number",
+											"format": "double"
+										},
+										"IdSpentCategory": {
+											"type": "number",
+											"format": "double"
+										},
+										"IdSpent": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Amount",
+										"Description",
+										"IdSpentStatus",
+										"IdSpentCategory",
+										"IdSpent"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/spentcategory": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"properties": {
+											"Active": {
+												"type": "boolean"
+											},
+											"RegisterDate": {
+												"type": "string",
+												"format": "date-time"
+											},
+											"Description": {
+												"type": "string"
+											},
+											"IdSpentCategory": {
+												"type": "number",
+												"format": "double"
+											}
+										},
+										"required": [
+											"Active",
+											"RegisterDate",
+											"Description",
+											"IdSpentCategory"
+										],
+										"type": "object"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Category"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentCategory": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Description",
+										"IdSpentCategory"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Category"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateSpentCategory"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentCategory": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Description",
+										"IdSpentCategory"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Category"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateSpentCategory"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/spentcategory/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentCategory": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Description",
+										"IdSpentCategory"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Category"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentCategory": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Description",
+										"IdSpentCategory"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Category"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/spentstatus": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"properties": {
+											"Active": {
+												"type": "boolean"
+											},
+											"RegisterDate": {
+												"type": "string",
+												"format": "date-time"
+											},
+											"Description": {
+												"type": "string"
+											},
+											"IdSpentStatus": {
+												"type": "number",
+												"format": "double"
+											}
+										},
+										"required": [
+											"Active",
+											"RegisterDate",
+											"Description",
+											"IdSpentStatus"
+										],
+										"type": "object"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Status"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentStatus": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Description",
+										"IdSpentStatus"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Status"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateSpentStatus"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentStatus": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Description",
+										"IdSpentStatus"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Status"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateSpentStatus"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/spentstatus/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentStatus": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Description",
+										"IdSpentStatus"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Status"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"Active": {
+											"type": "boolean"
+										},
+										"RegisterDate": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"Description": {
+											"type": "string"
+										},
+										"IdSpentStatus": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"Active",
+										"RegisterDate",
+										"Description",
+										"IdSpentStatus"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Spent Status"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
