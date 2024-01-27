@@ -12,9 +12,20 @@ export default class SpentController extends Controller{
         try {
             const spents = await prisma.spent.findMany({
                 where: { Active: true },
+                include: { spentstatus: true, spentcategory: true },
             });
+
+            const transformedSpents = spents.map(spent => ({
+                Active: spent.Active,
+                RegisterDate: spent.RegisterDate,
+                Amount: spent.Amount,
+                Description: spent.Description,
+                Status: spent.spentstatus?.Description,
+                Category: spent.spentcategory?.Description,
+                IdSpent: spent.IdSpent
+            }));
     
-            return spents
+            return transformedSpents
         } catch (error) {
             console.error(error)
         } finally {

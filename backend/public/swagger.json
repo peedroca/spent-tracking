@@ -148,40 +148,38 @@
 								"schema": {
 									"items": {
 										"properties": {
-											"Active": {
-												"type": "boolean"
+											"IdSpent": {
+												"type": "number",
+												"format": "double"
+											},
+											"Category": {
+												"type": "string"
+											},
+											"Status": {
+												"type": "string"
+											},
+											"Description": {
+												"type": "string"
+											},
+											"Amount": {
+												"$ref": "#/components/schemas/Decimal"
 											},
 											"RegisterDate": {
 												"type": "string",
 												"format": "date-time"
 											},
-											"Amount": {
-												"$ref": "#/components/schemas/Decimal"
-											},
-											"Description": {
-												"type": "string"
-											},
-											"IdSpentStatus": {
-												"type": "number",
-												"format": "double"
-											},
-											"IdSpentCategory": {
-												"type": "number",
-												"format": "double"
-											},
-											"IdSpent": {
-												"type": "number",
-												"format": "double"
+											"Active": {
+												"type": "boolean"
 											}
 										},
 										"required": [
-											"Active",
-											"RegisterDate",
-											"Amount",
+											"IdSpent",
+											"Category",
+											"Status",
 											"Description",
-											"IdSpentStatus",
-											"IdSpentCategory",
-											"IdSpent"
+											"Amount",
+											"RegisterDate",
+											"Active"
 										],
 										"type": "object"
 									},

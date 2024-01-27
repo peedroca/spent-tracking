@@ -15,7 +15,7 @@ class SpentService extends Service {
     return response.data;
   }
 
-  Future<dynamic> create(String category, String status, String description, num amount) async {
+  Future<dynamic> create(String category, String status, String description, String amount) async {
     final body = {
       "category": category,
       "status": status,
@@ -29,22 +29,25 @@ class SpentService extends Service {
     return response.data;
   }
 
-  // Future<dynamic> update(int id, String description) async {
-  //   final body = {
-  //     "idSpent": id,
-  //     "description": description
-  //   };
+  Future<dynamic> update(int id, String category, String status, String description, String amount) async {
+    final body = {
+      "idSpent": id,
+      "category": category,
+      "status": status,
+      "description": description,
+      "amount": amount
+    };
 
-  //   final dio = getDio();
-  //   final response = await dio.put('/spent', data: body);
+    final dio = getDio();
+    final response = await dio.put('/spent', data: body);
 
-  //   return response.data;
-  // }
+    return response.data;
+  }
 
-  // Future<dynamic> delete(int id) async {
-  //   final dio = getDio();
-  //   final response = await dio.delete('/spent/$id');
+  Future<dynamic> delete(int id) async {
+    final dio = getDio();
+    final response = await dio.delete('/spent/$id');
 
-  //   return response.data;
-  // }
+    return response.data;
+  }
 }
