@@ -1,0 +1,26 @@
+Table Spent {
+    IdSpent int [primary key]
+    IdSpentCategory int
+    IdSpentStatus int
+    Description varchar(255)
+    Amount decimal(18, 2)
+    RegisterDate datetime
+    Active bit
+}
+
+Table SpentCategory {
+    IdSpentCategory int [primary key]
+    Description varchar(255)
+    RegisterDate datetime
+    Active bit
+}
+
+Table SpentStatus {
+    IdSpentStatus int [primary key]
+    Description varchar(255)
+    RegisterDate datetime
+    Active bit
+}
+
+Ref: Spent.IdSpentCategory > SpentCategory.IdSpentCategory
+Ref: Spent.IdSpentStatus > SpentStatus.IdSpentStatus

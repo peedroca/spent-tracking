@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model spent {
+  IdSpent         Int            @id @default(autoincrement())
+  IdSpentCategory Int?
+  IdSpentStatus   Int?
+  Description     String?        @db.VarChar(255)
+  Amount          Decimal?       @db.Decimal(18, 2)
+  RegisterDate    DateTime?      @db.DateTime(0)
+  Active          Boolean?       @db.Bit(1)
+  spentcategory   spentcategory? @relation(fields: [IdSpentCategory], references: [IdSpentCategory], onDelete: NoAction, onUpdate: NoAction, map: "spent_ibfk_1")
+  spentstatus     spentstatus?   @relation(fields: [IdSpentStatus], references: [IdSpentStatus], onDelete: NoAction, onUpdate: NoAction, map: "spent_ibfk_2")
+
+  @@index([IdSpentCategory], map: "spent_ibfk_1")
+  @@index([IdSpentStatus], map: "spent_ibfk_2")
+}
+
+model spentcategory {
+  IdSpentCategory Int       @id @default(autoincrement())
+  Description     String?   @db.VarChar(255)
+  RegisterDate    DateTime? @db.DateTime(0)
+  Active          Boolean?  @db.Bit(1)
+  spent           spent[]
+}
+
+model spentstatus {
+  IdSpentStatus Int       @id @default(autoincrement())
+  Description   String?   @db.VarChar(255)
+  RegisterDate  DateTime? @db.DateTime(0)
+  Active        Boolean?  @db.Bit(1)
+  spent         spent[]
+}
