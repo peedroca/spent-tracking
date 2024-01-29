@@ -58,6 +58,17 @@ class _SpentDetailState extends State<SpentDetail> {
               ),
               ListTile(
                 title: Text(
+                  "Amount:",
+                  style: TextStyle(color: MyTheme.primaryDark, fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  spentController.selectedSpent.value["Amount"].toString(),
+                  softWrap: true,
+                  maxLines: 2,
+                ),
+              ),
+              ListTile(
+                title: Text(
                   "Description:",
                   style: TextStyle(color: MyTheme.primaryDark, fontWeight: FontWeight.bold),
                 ),

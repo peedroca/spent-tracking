@@ -28,6 +28,12 @@ export default class SpentRouter {
             res.json(response);
         });
 
+        router.put('/spent/topending', async (req, res) => {
+            const controller = new SpentController();
+            const response = await controller.updateAllToPending();
+            res.json(response);
+        });
+
         router.delete('/spent/:id', async (req, res) => {
             const { id } = req.params;
             const controller = new SpentController();

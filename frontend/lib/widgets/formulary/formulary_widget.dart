@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spenttracking/common/my_theme.dart';
 import 'package:spenttracking/widgets/formulary/models/formulary_field.dart';
 
 import '../../common/my_theme.input.dart';
 import '../button/button_widget.dart';
+import 'models/formulary_dropdown_field.dart';
+import 'models/formulary_small_help.dart';
 import 'models/formulary_text_field.dart';
 
 class FormularyWidget extends StatelessWidget {
@@ -18,6 +22,19 @@ class FormularyWidget extends StatelessWidget {
 
     for (FormularyField field in fields) {
       switch (field.runtimeType) {
+        case FormularySmallHelp:
+          var typedField = field as FormularySmallHelp;
+          fieldsList.add(SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10,),
+              child: Text(
+                typedField.helpText,
+                style: TextStyle(color: MyTheme.primaryDark),
+              ),
+            ),
+          ));
+          break;
         case FormularyTextField:
           var typedField = field as FormularyTextField;
           fieldsList.add(TextFormField(
@@ -29,7 +46,37 @@ class FormularyWidget extends StatelessWidget {
             ),
           ));
           break;
+        case FormularyDropdownField:
+          var typedField = field as FormularyDropdownField;
+          fieldsList.add(Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+              border: Border.all(color: MyTheme.primaryDark),
+              borderRadius: MyTheme.borderRadius, 
+            ),
+            child: DropdownButton<String>(
+              isExpanded: true,
+              icon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(typedField.icon, color: MyTheme.primaryDark,),
+              ),
+              iconSize: 16,
+              value: typedField.initialValue,
+              items: typedField.items.map((item) {
+                return DropdownMenuItem<String>(
+                  value: item[typedField.field],
+                  child: Text(item[typedField.field]),
+                );
+              }).toList(),
+              onChanged: typedField.onChanged,
+              underline: Container(),
+            ),
+          ));
+          break;
       }
+      
+      fieldsList.add(const SizedBox(height: 20,));
     }
 
     fieldsList.add(getFooter());
@@ -44,25 +91,22 @@ class FormularyWidget extends StatelessWidget {
   }
 
   Widget getFooter() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          ButtonWidget(
-            icon: Icons.cancel,
-            onTap: onClearForm,
-            title: 'Clear',
-            isLight: true,
-          ),
-          const SizedBox(width: 20,),
-          ButtonWidget(
-            icon: Icons.save,
-            onTap: onSaveForm,
-            title: 'Save',
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        ButtonWidget(
+          icon: Icons.cancel,
+          onTap: onClearForm,
+          title: 'Clear',
+          isLight: true,
+        ),
+        const SizedBox(width: 20,),
+        ButtonWidget(
+          icon: Icons.save,
+          onTap: onSaveForm,
+          title: 'Save',
+        ),
+      ],
     );
   }
 }

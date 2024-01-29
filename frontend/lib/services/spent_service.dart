@@ -44,6 +44,13 @@ class SpentService extends Service {
     return response.data;
   }
 
+  Future<dynamic> updateAllToPending() async {
+    final dio = getDio();
+    final response = await dio.put('/spent/topending');
+
+    return response.data;
+  }
+
   Future<dynamic> delete(int id) async {
     final dio = getDio();
     final response = await dio.delete('/spent/$id');

@@ -42,6 +42,12 @@ class _SpentPageState extends State<SpentPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ButtonWidget(
+                    onTap: () async => await spentController.updateAllToPending(), 
+                    icon: Icons.pending, 
+                    title: "To pending",
+                    isLight: true,
+                  ),
+                  ButtonWidget(
                     onTap: () => Get.to(const SpentStatusPage()), 
                     icon: Icons.check, 
                     title: "Status",

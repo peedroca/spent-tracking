@@ -26,8 +26,8 @@ class SpentController extends GetxController {
   var spentCategoryList = [].obs;
 
   var selectedSpent = Rx<Map<String, dynamic>>({});
-  var selectedCategory = Rx<Map<String, dynamic>>({});
-  var selectedStatus = Rx<Map<String, dynamic>>({});
+  var selectedCategory = Rx<String?>(null);
+  var selectedStatus = Rx<String?>(null);
 
   @override
   void onInit() {
@@ -38,6 +38,7 @@ class SpentController extends GetxController {
   @override
   void dispose() {
     descriptionController.dispose();
+    amountController.dispose();
     super.dispose();
   }
 
@@ -65,16 +66,16 @@ class SpentController extends GetxController {
 
   Future handleSave() async {
     if (formKey.currentState!.validate()) {
-      Future<dynamic> action = selectedSpent.value["IdSpentSpent"] != null 
-        ? spentService.update(selectedSpent.value["IdSpentSpent"], 
-            selectedCategory.value["Description"],
-            selectedStatus.value["Description"],
+      Future<dynamic> action = selectedSpent.value["IdSpent"] != null 
+        ? spentService.update(selectedSpent.value["IdSpent"], 
+            selectedCategory.value ?? "",
+            selectedStatus.value ?? "",
             descriptionController.text,
             amountController.text
           )
         : spentService.create(
-            selectedCategory.value["Description"],
-            selectedStatus.value["Description"],
+            selectedCategory.value ?? "",
+            selectedStatus.value ?? "",
             descriptionController.text,
             amountController.text
           );
@@ -86,6 +87,11 @@ class SpentController extends GetxController {
     }
   }
 
+  Future updateAllToPending() async {
+    await spentService.updateAllToPending();
+    await fetchData();
+  }
+
   void onOpenCreateForm() {
     onClearForm();
     Get.to(const SpentForm());
@@ -93,14 +99,23 @@ class SpentController extends GetxController {
 
   void onOpenEditForm(index, data) {
     onClearForm();
+
+    debugPrint(data.toString());
     
     selectedSpent.value = data;
     descriptionController.text = data["Description"];
+    amountController.text = data["Amount"];
+    selectedCategory.value = data["Category"];
+    selectedStatus.value = data["Status"];
+
     Get.to(const SpentForm());
   }
 
   void onClearForm() {
     descriptionController.text = "";
+    amountController.text = "";
+    selectedCategory.value = spentCategoryList.first["Description"];
+    selectedStatus.value = spentStatusList.first["Description"];
   }
 
   void updateList() {
@@ -115,6 +130,14 @@ class SpentController extends GetxController {
 
     pagingController.itemList = filteredItens;
     pagingController.nextPageKey = null;
+  }
+
+  void onChangedCategory(dynamic description) {
+    selectedCategory.value = description;
+  }
+
+  void onChangedStatus(dynamic description) {
+    selectedStatus.value = description;
   }
 
   IconData getIconByStatus(dynamic data) {

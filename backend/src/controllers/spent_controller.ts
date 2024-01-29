@@ -112,6 +112,24 @@ export default class SpentController extends Controller{
         }
     }
 
+    @Put("/topending")
+    public async updateAllToPending() {
+        try {
+            const spents = await prisma.spent.updateMany({
+                where: { Active: true },
+                data: {
+                    IdSpentStatus: 1,
+                },
+            });
+    
+            return spents
+        } catch (error) {
+            console.error(error)
+        } finally {
+            await prisma.$disconnect()
+        }
+    }
+
     @Delete("/:id")
     public async delete(id: any) {
         try {
