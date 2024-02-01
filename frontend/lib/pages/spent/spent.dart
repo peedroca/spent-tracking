@@ -47,6 +47,7 @@ class _SpentPageState extends State<SpentPage> {
                     title: "To pending",
                     isLight: true,
                   ),
+                  const SizedBox(width: 5,),
                   ButtonWidget(
                     onTap: () => Get.to(const SpentStatusPage()), 
                     icon: Icons.check, 
