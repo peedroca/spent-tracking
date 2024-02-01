@@ -2,7 +2,7 @@
 
 Track your monthly spending with this tool! Record your usual expenses, organize them into categories, and update their status to plan your spending until the end of the month.
 
-![Spent Page](./assets/home_page.png)
+https://github.com/peedroca/spent-tracking/assets/43295412/ad57a605-7bb6-482e-9888-ace462a049b5
 
 ## Running the application
 1. Go to /backend and run:
